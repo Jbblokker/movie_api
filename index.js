@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
   res.send('You have chosen an excellent selection of movies!')
 });
 
-app.use(exrpress.static('public/documentation.html'));
+app.use(express.static('public/documentation.html'));
 
 app.use((err, req, res, next) => {
   consol.error(err.stack);
