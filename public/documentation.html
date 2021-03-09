@@ -8,5 +8,130 @@
     <br> Users will be able to sign up, update their personal information,
     <br> and create a list of their favorite movies.
    </p>
-   
+   <h1>Endpoints executed in this program</h1>
+     <h2>In this api we have a number of actions that can be executed</h2>
+       <h3> Request</h3>
+         <p>Get a whole list of movies</p>
+           <br>URL- /movies
+           <br>HTTP method- GET
+           <br>Request data format- none
+           <br>This JSON object will return data about all movies
+           <br> example of returned results
+           <br>  {
+             title: 'The Green Book',
+             director: 'Peter Farrelly'
+           },
+         </p>
+      <h3>Request</h3>
+        <p>Get data about a specific movie
+          <br>URL- movies/title.
+          <br>HTTP method- GET
+          <br>Request data format- none
+          <br>This JSON object will return data about a single movie and all of its pertaining data.
+          <br>  {
+              title: 'The Green Book',
+              director: 'Peter Farrelly'
+            },
+        </p>
+      <h3>Request</h3>
+        <p>Get data about a genre for a specific movie
+          <br>URL-/movies/:name
+          <br>HTTP method- GET
+          <br>Request data format- none
+          <br>This JSON object will return data about a genre for a single movie
+          <br>  {
+              title: 'The Green Book',
+              director: 'Peter Farrelly'
+              genre:****
+            },
+        </p>
+      <h3>Request</h3>
+        <p>Get data about a specific director by name
+          <br>URL- /movies/:director
+          <br>HTTP method- GET
+          <br>Request data format- none
+          <br>This JSON object will return data about a specific director
+          <br> {
+            director: 'directorname
+            birthdate: 'examplebirthdate
+            dateofdeath: 'exampledeathdate'
+            bio:'Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi
+              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+              id est laborum.'
+          }
+        </p>
+      <h3>Request</h3>
+        <p>  Allow a new user to register
+          <br>URL- /Users
+          <br>HTTP method- POST
+          <br>Request data format-{
+             Username: 'exampleusername'
+             Password: 'examplepassword'
+             Email: 'email@example.com'
+             DOB: '00/00/0000'
+            },
+          <br>This JSON object will return either an error message saying 'missing name in request body'
+            or send back information of the new user as shown in example of request data information
+          <br>  {
+               Username: 'exampleusername'
+               Password: 'examplepassword'
+               Email: 'email@example.com'
+               DOB: '00/00/0000'
+              },
+        </p>
+      <h3>Request</h3>
+        <p>Allow an existing user to update their information
+          <br>URL- /users/:Username
+          <br>HTTP method- PUT
+          <br>Request data format- data will come back to user to allow them to modify data {
+             Username: 'exampleusername'
+             Password: 'examplepassword'
+             Email: 'email@example.com'
+             DOB: '00/00/0000'
+            },
+          <br>This JSON object will allow the user to update their existing account information. two
+          messages will come back saying either the informaton has been correctly entered or username could
+          not be found
+          <br>  users.name[req.params.username] = parseInt(req.params.name);
+            res.status(201).send('users name has been updated form ' + req.params.name+ 'with new name of '
+          + req.params.name);
+          } else {
+            res.status(404).send('username ' + req.params.username + 'was not found')
+          }
+          });
+      </p>
+    <h3>Request</h3>
+      <p>Allow a user to add a movie to their favorites list
+        <br>URL- /movies/:newMovie
+        <br>HTTP Method- POST
+        <br>Request data format- none
+        <br>This JSON object will allow the user to add a movie to their favorites list.
+        <br>
+            res.send('You have successfully added a movie to your favorites list.')
+      </p>
+    <h3>Request</h3>
+      <p>Allow user to remove a movie from their favorites list.
+        <br>URL- /movies/:favorites
+        <br>HTTP method- DELETE
+        <br>Request data format- none
+        <br>This JSON object will allow the user to remove a movie from their favorites list.
+        <br>
+          res.send('Successfully deleted request on removing movie from favorites list.');
+      </p>
+    <h3>Request</h3>
+      <p>Allow existing user to deregister
+        <br>URL- /users/:Username
+        <br>HTTP method- DELETE
+        <br>Request data format- none
+        <br>This JSON object will allow the user to remove a movie from their favorites list.
+        <br>
+        res.send('Successfully deleted request on removing movie from favorites list.');
+      </p>
+  
+
+
+
   </body>
