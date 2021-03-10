@@ -54,7 +54,7 @@ app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 //request sending back message
-app.get('/', (req, res) => {
+app.get('/information', (req, res) => {
   res.send('You have chosen an excellent selection of movies!')
 });
 
@@ -62,20 +62,22 @@ app.get('/', (req, res) => {
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
-app.get('movies/:title', (req, res) => {
+app.get('/title', (req, res) => {
   res.send('Successfully received data on a genre. ');
 });
 
 //request displaying infromation about the director
-app.get('movies/:director', (req, res) => {
-  res.send('SUccessfully retreived information about a specific director.')
+app.get('/movies/:director', (req, res) => {
+  res.send('SUccessfully retreived information about a specific director.');
 });
 
 //request data about a specific movie by title
 app.get('/movies/:name', (req, res) => {
-  res.json(movie.find((movie) =>
-    { return student.name === req.params.name}));
+  res.send('successfully retreived movie by title.');
 });
+//   res.json(movie.find((movie) =>
+//     { return movies.name === req.params.name}));
+// });
 
 //allow useer to remove a movie from their favorites list
 app.delete('/movies/:favorites', (req, res) => {
@@ -83,32 +85,35 @@ app.delete('/movies/:favorites', (req, res) => {
 });
 
 //allow a user to update their username.
-app.put('/users/:username', (req,res) => {
-  let users = users.find((user)=> {return user.username
-  === req.parmas,name});
-
-if (users) {
-  users.name[req.params.username] = parseInt(req.params.name);
-  res.status(201).send('users name has been updated form ' + req.params.name+ 'with new name of '
-+ req.params.name);
-} else {
-  res.status(404).send('username ' + req.params.username + 'was not found')
-}
+app.put('/update/:users', (req,res) => {
+  res.send('Users information has successfully been updated.');
 });
+//   let users = users.find((user)=> {return user.username
+//   === req.parmas,name});
+//
+// if (users) {
+//   users.name[req.params.username] = parseInt(req.params.name);
+//   res.status(201).send('users name has been updated form ' + req.params.name+ 'with new name of '
+// + req.params.name);
+// } else {
+//   res.status(404).send('username ' + req.params.username + 'was not found')
+// }
+// });
 
 //allows a new user to register
 app.post('/users', (req, res) =>{
-  let newUsers = req.body;
-
-  if(!newUser.username) {
-    const message = 'missing name in request body';
-    res.status(400).send (message);
-  }else{
-    newUser.username = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
-});
+  res.send('user has successfully been added!')
+//   let newUsers = req.body;
+//
+//   if(!newUser.username) {
+//     const message = 'missing name in request body';
+//     res.status(400).send (message);
+//   }else{
+//     newUser.username = uuid.v4();
+//     users.push(newUser);
+//     res.status(201).send(newUser);
+//   }
+// });
 
 //allow a user to deregister.
 app.delete('/users/:username', (req, res) => {
