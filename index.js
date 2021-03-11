@@ -102,7 +102,8 @@ app.put('/update/:users', (req,res) => {
 
 //allows a new user to register
 app.post('/users', (req, res) =>{
-  res.send('user has successfully been added!')
+  res.send('user has successfully been added!');
+});
 //   let newUsers = req.body;
 //
 //   if(!newUser.username) {
@@ -129,7 +130,7 @@ app.post('/movies/:favorites',(req, res) => {
 //error message
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Well, that esclated quickly.')
+  res.status(500).send('Well, that esclated quickly.');
 });
 
 
