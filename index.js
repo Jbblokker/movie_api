@@ -62,7 +62,7 @@ app.get('/information', (req, res) => {
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
-app.get('/title', (req, res) => {
+app.get('/genre/:title', (req, res) => {
   res.send('Successfully received data on a genre. ');
 });
 
