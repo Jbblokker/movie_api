@@ -1,8 +1,14 @@
 const express = require('express');
 morgan = require('morgan');
 uuid = require('uuid');
+const mongoose = requrire('mongoose');
+const Models = require('./models.js');
 
 const app = express();
+const Movies = Models.movie;
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
+useUnifiedToplogy: true});
 
 app.use(morgan('common'));
 
