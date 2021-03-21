@@ -45,9 +45,16 @@ app.get('/Genre/:Name', (req, res) => {
     });
 });
 
-//request displaying infromation about the director
-app.get('/movies/:director', (req, res) => {
-  res.send('SUccessfully retreived information about a specific director.');
+//request displaying information about the director
+app.get('/Director/:Name', (req, res) => {
+  Director.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error " + error)
+    });
 });
 
 //request data about a specific movie by title
