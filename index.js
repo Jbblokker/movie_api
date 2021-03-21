@@ -34,8 +34,15 @@ app.get('/information', (req, res) => {
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
-app.get('/genre/:title', (req, res) => {
-  res.send('Successfully received data on a genre. ');
+app.get('/Genre/:Name', (req, res) => {
+  Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error " + error)
+    });
 });
 
 //request displaying infromation about the director
