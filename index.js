@@ -6,8 +6,10 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const morgan = require('morgan');
 const app = express();
-const Movies = Models.movie;
+
+const Movies = Models.movies;
 const Users = Models.User;
+
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
 useUnifiedToplogy: true});
 
