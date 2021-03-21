@@ -70,8 +70,19 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //allow useer to remove a movie from their favorites list
-app.delete('/movies/:favorites', (req, res) => {
-  res.send('Successfully deleted request on removing movie from favorites list.');
+app.delete('/Users/:Favoritemovies', (req, res) => {
+  Users.findOneAndRemove({Favoritemovies: req.params.Name })
+    .then((favoritemovies) => {
+      if (!favortiemovies) {
+        res.status(400).send(req.params.Favoritemovies + ' was not found.');
+      } else {
+        res.status(200).send(req.params.Favoritemovies + ' was deleted.');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error " + error);
+   });
 });
 
 //allow a user to update their username.
