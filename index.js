@@ -17,7 +17,13 @@ app.use(morgan('common'));
 
 //request list of all movies
 app.get('/movies', (req, res) => {
-  res.json(topMovies);
+  Movies.find().then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Error " + error)
+  });
 });
 //request sending back message
 app.get('/information', (req, res) => {
