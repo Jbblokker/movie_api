@@ -110,19 +110,32 @@ app.put('/users/:Username', (req,res) => {
 
 //allows a new user to register
 app.post('/users', (req, res) =>{
-  res.send('user has successfully been added!');
-});
-//   let newUsers = req.body;
-//
-//   if(!newUser.username) {
-//     const message = 'missing name in request body';
-//     res.status(400).send (message);
-//   }else{
-//     newUser.username = uuid.v4();
-//     users.push(newUser);
-//     res.status(201).send(newUser);
-//   }
-// });
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists')
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Paswword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: '+ error);
+         });
+       }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: '+ error);
+    });
+});    
+
 
 //allow a user to deregister.
 app.delete('/users/:username', (req, res) => {
