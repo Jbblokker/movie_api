@@ -12,49 +12,6 @@ useUnifiedToplogy: true});
 
 app.use(morgan('common'));
 
-const topMovies = [
-  {
-    title: 'The Green Book',
-    director: 'Peter Farrelly'
-  },
-  {
-    title:'Rouge One: A Star Wars Story',
-    director:'Gareth Edwards'
-  },
-  {
-    title:'The Book of Eli',
-    director:'Albert Hughes, Allen Hughes'
-  },
-  {
-    title:'Saving Private Ryan',
-    director:'Steven Spielberg'
-  },
-  {
-    title:'Defience',
-    director:'Edward Zwick'
-  },
-  {
-    title:'Tron:Legacy',
-    director:'Joseph Kosinski'
-  },
-  {
-    title:'Bridge of Spies',
-    director:'Steven Spielberg'
-  },
-  {
-    title:'Darkest Hour',
-    director:'Joe Wright'
-  },
-  {
-    title:'Moonrise Kingdom',
-    director:'Wes Anderson'
-  },
-  {
-    title:'War Horse',
-    director:'Steven Spielberg'
-  }
-];
-
 //request list of all movies
 app.get('/movies', (req, res) => {
   res.json(topMovies);
