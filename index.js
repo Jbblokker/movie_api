@@ -139,7 +139,18 @@ app.post('/users', (req, res) =>{
 
 //allow a user to deregister.
 app.delete('/users/:username', (req, res) => {
-  res.send('User has successfully been deleted.')
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then ((user) => {
+      if(!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: '+ error);
+    });
 });
 
 //allow user to add movie to their favorites list
