@@ -154,8 +154,19 @@ app.delete('/users/:username', (req, res) => {
 });
 
 //allow user to add movie to their favorites list
-app.post('/movies/:favorites',(req, res) => {
-  res.send('You have successfully added a movie to your favorites list.')
+app.post('/users/:Username/Movies/:MovieID',(req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $push: { favoriteMovies: req.params.MovieID }
+  },
+  { new: true },// this line makes sure that the updated document is returned
+  (error, updatedUser) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error '+ error);
+    } else {
+      res.json(updateUser);
+    }
+  });
 });
 
 
