@@ -86,20 +86,27 @@ app.delete('/Users/:Favoritemovies', (req, res) => {
 });
 
 //allow a user to update their username.
-app.put('/update/:users', (req,res) => {
-  res.send('Users information has successfully been updated.');
-});
-//   let users = users.find((user)=> {return user.username
-//   === req.parmas,name});
-//
-// if (users) {
-//   users.name[req.params.username] = parseInt(req.params.name);
-//   res.status(201).send('users name has been updated form ' + req.params.name+ 'with new name of '
-// + req.params.name);
-// } else {
-//   res.status(404).send('username ' + req.params.username + 'was not found')
-// }
-// });
+app.put('/users/:Username', (req,res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $set:
+        {
+          Username: req.body.Username,
+          Password: req.body.Paswword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+
+        }
+       },
+     {new: true }, // this line makes sure that the updated documetn is returned
+     (error, updtatedUser) => {
+       if(error) {
+         console.error(error)
+         res.status(500).send('Error: ' + error);
+       } else {
+         res.json(updatedUser);
+       }
+     });
+  });
 
 //allows a new user to register
 app.post('/users', (req, res) =>{
