@@ -68,9 +68,6 @@ app.get('/movies/:Title', (req, res) => {
       res.status(500).send("Error " + error);
     });
 });
-//   res.json(movie.find((movie) =>
-//     { return movies.name === req.params.name}));
-// });
 
 //allow useer to remove a movie from their favorites list
 app.delete('/movies/:favorites', (req, res) => {
