@@ -58,8 +58,15 @@ app.get('/Director/:Name', (req, res) => {
 });
 
 //request data about a specific movie by title
-app.get('/movies/:name', (req, res) => {
-  res.send('successfully retreived movie by title.');
+app.get('/movies/:Title', (req, res) => {
+  movies.findOne({ Title: req.params.Title })
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error " + error);
+    });
 });
 //   res.json(movie.find((movie) =>
 //     { return movies.name === req.params.name}));
