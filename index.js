@@ -138,6 +138,17 @@ app.post('/user', (req, res) =>{
     });
 });
 
+//pull list of all users
+app.get('/user/:Username', (req, res) => {
+User.findOne({ Username: req.params.Username })
+.then ((user) =>{
+  res.json(user);
+})
+.catch((error) => {
+  console.error(error);
+  res.status(500).send('Error: '+ error);
+});
+});
 
 //allow a user to deregister.
 app.delete('/user/:username', (req, res) => {
