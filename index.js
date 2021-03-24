@@ -72,11 +72,11 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //allow useer to remove a movie from their favorites list
-app.delete('/Users/:Favoritemovies', (req, res) => {
-  Users.findOneAndRemove({Favoritemovies: req.params.Name })
+app.delete('/user/:Favoritemovies', (req, res) => {
+  User.findOneAndRemove({Favoritemovies: req.params.Name })
     .then((favoritemovies) => {
       if (!favortiemovies) {
-        res.status(400).send(req.params.Favoritemovies + ' was not found.');
+        res.status(400).sends(req.params.Favoritemovies + ' was not found.');
       } else {
         res.status(200).send(req.params.Favoritemovies + ' was deleted.');
       }
@@ -88,8 +88,8 @@ app.delete('/Users/:Favoritemovies', (req, res) => {
 });
 
 //allow a user to update their username.
-app.put('/users/:Username', (req,res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
+app.put('/user/:Username', (req,res) => {
+  User.findOneAndUpdate({ Username: req.params.Username }, {
     $set:
         {
           Username: req.body.Username,
@@ -111,13 +111,13 @@ app.put('/users/:Username', (req,res) => {
   });
 
 //allows a new user to register
-app.post('/users', (req, res) =>{
-  Users.findOne({ Username: req.body.Username })
+app.post('/user', (req, res) =>{
+  User.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
         return res.status(400).send(req.body.Username + 'already exists')
       } else {
-        Users.create({
+        User.create({
           Username: req.body.Username,
           Password: req.body.Paswword,
           Email: req.body.Email,
@@ -136,12 +136,12 @@ app.post('/users', (req, res) =>{
       console.error(error);
       res.status(500).send('Error: '+ error);
     });
-});    
+});
 
 
 //allow a user to deregister.
-app.delete('/users/:username', (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
+app.delete('/user/:username', (req, res) => {
+  User.findOneAndRemove({ Username: req.params.Username })
     .then ((user) => {
       if(!user) {
         res.status(400).send(req.params.Username + ' was not found');
