@@ -14,7 +14,9 @@ mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
 useUnifiedToplogy: true });
 
 app.use(morgan('common'));
+app.use(bodyParser.json());
 
+let auth = require('./auth')(app);
 //request list of all movies
 app.get('/movies', (req, res) => {
   Movies.find().then((movies) => {
