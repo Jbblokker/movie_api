@@ -7,11 +7,11 @@ const Models = require('./models.js');
 const morgan = require('morgan');
 const app = express();
 
-const Movies = Models.movies;
+const Movies = Models.Movie;
 const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
-useUnifiedToplogy: true});
+useUnifiedToplogy: true });
 
 app.use(morgan('common'));
 
@@ -59,7 +59,7 @@ app.get('/Director/:Name', (req, res) => {
 
 //request data about a specific movie by title
 app.get('/movies/:Title', (req, res) => {
-  movies.findOne({ Title: req.params.Title })
+  Movies.findOne({ Title: req.params.Title })
     .then((movies) => {
       res.json(movies);
     })
