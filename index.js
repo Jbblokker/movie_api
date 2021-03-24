@@ -34,10 +34,10 @@ app.get('/information', (req, res) => {
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
-app.get('/Genre/:Name', (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((genre) => {
-      res.json(genre);
+app.get('/movies/:Genres/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie.Genre);
     })
     .catch((error) => {
       console.error(error);
