@@ -48,10 +48,10 @@ app.get('/movies/:Genres/:Title', (req, res) => {
 });
 
 //request displaying information about the director
-app.get('/Director/:Name', (req, res) => {
-  Director.findOne({ Name: req.params.Name })
-    .then((director) => {
-      res.json(director);
+app.get('/movies/:Directors/:Name', (req, res) => {
+  Movies.findOne({ "Director.Name": req.params.Name })
+    .then((movie) => {
+      res.json(movie.Director);
     })
     .catch((error) => {
       console.error(error);
