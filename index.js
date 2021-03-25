@@ -71,20 +71,44 @@ app.get('/movies/:Title', (req, res) => {
     });
 });
 
-//allow useer to remove a movie from their favorites list
-app.delete('/user/:Favoritemovies', (req, res) => {
-  User.findOneAndRemove({Favoritemovies: req.params.Name })
-    .then((favoritemovies) => {
-      if (!favortiemovies) {
-        res.status(400).sends(req.params.Favoritemovies + ' was not found.');
-      } else {
-        res.status(200).send(req.params.Favoritemovies + ' was deleted.');
+//allow user to remove a movie from their favorites list
+app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
+  Users.find({ _id: req.params.Username }, function (err, user) {
+      if (user) {
+        let list = user[0].favoritemovies;
+        console.log(user[0]);
+        if (!list.includes(req.params.MovieID)) {
+          return res
+            .status(400)
+            .send('No movie matching that ID in the Favourites list');
+        } else {
+          //add to favorites
+          Users.findOneAndUpdate(
+            { _id: req.params.Username },
+            {
+              $pull: { Favoritemovies: req.params.MovieID },
+            },
+            {new: true }
+          )
+           .then(function (updateUser) {
+             res
+               .status(200)
+               .json(
+                 'movie with id' + req.params.MovieID +
+                  ' was successfully deleted. Updated Favourites list [' +
+                  updatedUser.Favoritemovies +
+                  ']'
+               );
+           })
+           .catch(function(err) {
+             console.error(err);
+             res.status(500).send('Error: ' + error);
+           });
       }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error " + error);
-   });
+    } else {
+      consle.error(error);
+      res.satus(500).send ('Error: ' + error);
+    }
 });
 
 //allow a user to update their username.
