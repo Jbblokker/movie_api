@@ -112,12 +112,12 @@ app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
 });
 
 //allow a user to update their username.
-app.put('/user/:Username', (req,res) => {
+app.put('/users/:Username', (req,res) => {
   User.findOneAndUpdate({ Username: req.params.Username }, {
     $set:
         {
           Username: req.body.Username,
-          Password: req.body.Paswword,
+          Password: req.body.Passwword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
 
@@ -133,17 +133,17 @@ app.put('/user/:Username', (req,res) => {
        }
      });
   });
-
+})
 //allows a new user to register
 app.post('/user', (req, res) =>{
-  User.findOne({ Username: req.body.Username })
+  Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
         return res.status(400).send(req.body.Username + 'already exists')
       } else {
-        User.create({
+        Users.create({
           Username: req.body.Username,
-          Password: req.body.Paswword,
+          Password: req.body.Password,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
@@ -162,9 +162,9 @@ app.post('/user', (req, res) =>{
     });
 });
 
-//pull list of all users
+//pull one user
 app.get('/user/:Username', (req, res) => {
-User.findOne({ Username: req.params.Username })
+Users.findOne({ Username: req.params.Username })
 .then ((user) =>{
   res.json(user);
 })
@@ -175,8 +175,8 @@ User.findOne({ Username: req.params.Username })
 });
 
 //allow a user to deregister.
-app.delete('/user/:username', (req, res) => {
-  User.findOneAndRemove({ Username: req.params.Username })
+app.delete('/user/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
     .then ((user) => {
       if(!user) {
         res.status(400).send(req.params.Username + ' was not found');
@@ -193,7 +193,7 @@ app.delete('/user/:username', (req, res) => {
 //allow user to add movie to their favorites list
 app.post('/users/:Username/Movies/:MovieID',(req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $push: { favoriteMovies: req.params.MovieID }
+    $push: { favoritemovies: req.params.MovieID }
   },
   { new: true },// this line makes sure that the updated document is returned
   (error, updatedUser) => {
