@@ -38,7 +38,7 @@ app.get('/information', (req, res) => {
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
-app.get('/movies/:Genres/:Title', (req, res) => {
+app.get('/movies/Genres/:Title', (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
       if (movie) {
@@ -46,7 +46,7 @@ app.get('/movies/:Genres/:Title', (req, res) => {
     } else {
       return res
          .status(400)
-         .send(' no such genre')
+         .send('No such genre')
     }
   })
     .catch((error) => {
@@ -56,7 +56,7 @@ app.get('/movies/:Genres/:Title', (req, res) => {
 });
 
 //request displaying information about the director
-app.get('/movies/Directors/:Name', (req, res) => {
+app.get('/movies/Director/:Name', (req, res) => {
   Movies.findOne({ "Director.Name": req.params.Name })
     .then((movie) => {
       if (movie) {
@@ -72,7 +72,6 @@ app.get('/movies/Directors/:Name', (req, res) => {
       res.status(500).send("Error " + error)
     });
 });
-
 //request data about a specific movie by title
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({ Title: req.params.Title })
@@ -86,7 +85,7 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //allow user to remove a movie from their favorites list
-app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/Movies/:movieID', (req, res) => {
   Users.findOne({ _id: req.params.Username }, function (err, user) {
       if (user) {
         if (!list.includes(req.params.MovieID)) {
@@ -107,7 +106,7 @@ app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
                .status(200)
                .json(
                  'movie with id' + req.params.MovieID +
-                  ' was successfully deleted. Updated Favourites list [' +
+                  ' was successfully deleted. Updated Favorites list [' +
                   updatedUser.FavoreiteMovies +
                   ']'
                );
