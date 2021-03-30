@@ -84,43 +84,19 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-//allow user to remove a movie from their favorites list
-app.delete('/users/:Username/Movies/:movieID', (req, res) => {
-  Users.findOne({ _id: req.params.Username }, function (err, user) {
-      if (user) {
-        if (!list.includes(req.params.MovieID)) {
-          return res
-            .status(400)
-            .send('No movie matching that ID in the Favourites list');
-        } else {
-          //add to favorites
-          Users.findOneAndUpdate(
-            { _id: req.params.Username },
-            {
-              $pull: { FavoreiteMovies: req.params.MovieID },
-            },
-            {new: true }
-          )
-           .then(function (updateUser) {
-             res
-               .status(200)
-               .json(
-                 'movie with id' + req.params.MovieID +
-                  ' was successfully deleted. Updated Favorites list [' +
-                  updatedUser.FavoreiteMovies +
-                  ']'
-               );
-           })
-           .catch(function(err) {
-             console.error(err);
-             res.status(500).send('Error: ' + error);
-           });
-      }
-    } else {
-      consle.error(error);
-      res.satus(500).send ('Error: ' + error);
-    }
-});
+//allow user to remove a movie from their favorites listapp.delete(
+app.delete('/users/:username/movies/:movieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Users.findOneAndUpdate({ username: req.params.username },
+        { $pull: { favouriteMovies: req.params.movieID } },
+        { new: true },
+        (err, updatedUser) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error: ' + err);
+            } else {
+                res.json(updatedUser);
+            }
+        });
 
 //allow a user to update their username.
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req,res) => {
