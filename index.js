@@ -8,9 +8,11 @@ const morgan = require('morgan');
 const app = express();
 const passport = require('passport');
 require('./passport');
-
+const cors  = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
+const { check, validationResult } = require('express-validatior');
+
 
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
 useUnifiedToplogy: true });
