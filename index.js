@@ -140,15 +140,32 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
   });
 })
 //allows a new user to register
-app.post('/user',  (req, res) =>{
-  Users.findOne({ Username: req.body.Username })
+app.post('/user',
+  [
+    check('Username', 'Username is required').isLength({min:5}),
+    check('Username', 'Username condtains non alphanumeric characters - not allowed.')
+  .isAlphanumberic(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ],
+  (req, res) =>{
+
+    //check the validation ovject for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+  let hashedPassword = hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username })//search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
         return res.status(400).send(req.body.Username + 'already exists')
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
