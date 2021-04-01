@@ -19,8 +19,24 @@ useUnifiedToplogy: true });
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+//CORS
+app.use(cors());
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  orgin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){//if a specific origin isn't found on the list
+    // of a allowed origins
+      let message = 'The CORS policy for this application does not allow access form this origin ' + origin;
+         return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 let auth = require('./auth')(app);
+
 //request list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movies) => {
