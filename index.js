@@ -11,7 +11,7 @@ require('./passport');
 const cors  = require('cors');
 const Movies = Models.Movie;
 const Users = Models.User;
-const { check, validationResult } = require('express-validatior');
+const { check, validationResult } = require('express-validator');
 
 
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
