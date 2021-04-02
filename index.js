@@ -144,7 +144,7 @@ app.post('/user',
   [
     check('Username', 'Username is required').isLength({min:5}),
     check('Username', 'Username condtains non alphanumeric characters - not allowed.')
-  .isAlphanumberic(),
+  .isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
   ],
