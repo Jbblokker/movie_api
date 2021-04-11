@@ -13,9 +13,8 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const { check, validationResult } = require('express-validator');
 
-
-mongoose.connect('mongodb://localhost:27017/test', {useNewUrlparser: true,
-useUnifiedToplogy: true });
+//local host connection
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedToplogy: true });
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
