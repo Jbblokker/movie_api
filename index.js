@@ -23,7 +23,7 @@ app.use(cors());
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
 app.use(cors({
-  orgin: (origin, callback) => {
+  origin: (origin, callback) => {
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){//if a specific origin isn't found on the list
     // of a allowed origins
@@ -215,7 +215,7 @@ app.delete('/user/:Username', passport.authenticate('jwt', { session: false }), 
 //allow user to add movie to their favorites list
 app.post('/users/:Username/movies/:movieID',  passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $push: { FavoreiteMovies: req.params.movieID }
+    $push: { FavoriteMovies: req.params.movieID }
   },
   { new: true },// this line makes sure that the updated document is returned
   (error, updatedUser) => {
