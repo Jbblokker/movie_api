@@ -141,7 +141,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 //allows a new user to register
 app.post('/user',
   [
-    check('Username', 'Username is required').isLength({min:5}),
+    check('Username', 'Username is required with a minumum of 5 characters.').isLength({min:5}),
     check('Username', 'Username condtains non alphanumeric characters - not allowed.')
   .isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
