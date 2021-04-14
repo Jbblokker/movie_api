@@ -19,8 +19,7 @@ mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifie
 app.use(morgan('common'));
 app.use(bodyParser.json());
 //CORS
-app.use(cors());
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -33,9 +32,6 @@ app.use(cors({
     return callback(null, true);
   }
 }));
-
-let auth = require('./auth')(app);
-
 //request list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movies) => {
