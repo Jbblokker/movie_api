@@ -117,7 +117,7 @@ app.delete('/users/:username/movies/:movieID', passport.authenticate('jwt', { se
 
 //allow a user to update their username.
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req,res) => {
-  User.findOneAndUpdate({ Username: req.params.Username }, {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
     $set:
         {
           Username: req.body.Username,
@@ -128,7 +128,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
         }
        },
      {new: true }, // this line makes sure that the updated documetn is returned
-     (error, updtatedUser) => {
+     (error, updatedUser) => {
        if(error) {
          console.error(error)
          res.status(500).send('Error: ' + error);
@@ -141,8 +141,8 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 //allows a new user to register
 app.post('/user',
   [
-    check('Username', 'Username is required with a minumum of 5 characters.').isLength({min:5}),
-    check('Username', 'Username condtains non alphanumeric characters - not allowed.')
+    check('Username', 'Username is required with a minimum of 5 characters.').isLength({min:5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.')
   .isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
