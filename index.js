@@ -182,14 +182,14 @@ app.post('/user',
 
 //pull one user
 app.get('/user/:Username', passport.authenticate('jwt', { session: false }),  (req, res) => {
-Users.findOne({ Username: req.params.Username })
-.then ((user) =>{
-  res.json(user);
-})
-.catch((error) => {
-  console.error(error);
-  res.status(500).send('Error: '+ error);
-});
+  Users.findOne({ Username: req.params.Username })
+  .then ((user) =>{
+    res.json(user);
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: '+ error);
+  });
 });
 
 //allow a user to deregister.
