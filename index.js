@@ -13,6 +13,8 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const { check, validationResult } = require('express-validator');
 
+require('./auth')(app);
+
 //local host connection
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedToplogy: true });
 
@@ -30,6 +32,8 @@ app.use(cors({
          return callback(new Error(message ), false);
     }
     return callback(null, true);
+    
+
   }
 }));
 //request list of all movies
