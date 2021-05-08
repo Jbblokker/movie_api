@@ -21,7 +21,7 @@ mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifie
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-require('./auth')(app);
+
 //CORS
 let allowedOrigins = ['http://localhost:1234'];
 
@@ -38,6 +38,9 @@ app.use(cors({
 
   }
 }));
+
+require('./auth')(app);
+
 //request list of all movies
 app.get('/movies', (req, res) => {
   Movies.find().then((movies) => {
