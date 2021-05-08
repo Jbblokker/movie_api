@@ -13,13 +13,15 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const { check, validationResult } = require('express-validator');
 
-require('./auth')(app);
+
 
 //local host connection
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedToplogy: true });
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+
+require('./auth')(app);
 //CORS
 let allowedOrigins = ['http://localhost:1234'];
 
