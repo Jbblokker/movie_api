@@ -52,7 +52,7 @@ app.get('/movies', (req, res) => {
   });
 });
 //request sending back message
-app.get('/', (req, res) => {
+app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.send('You have chosen an excellent selection of movies!')
 });
 
@@ -132,7 +132,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 
         }
        },
-     {new: true }, // this line makes sure that the updated documetn is returned
+     {new: true }, // this line makes sure that the updated document is returned
      (error, updatedUser) => {
        if(error) {
          console.error(error)
