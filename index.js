@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 
 //CORS
-let allowedOrigins = ['http://localhost:1234'];
+let allowedOrigins = ['http://localhost:1234','http://localhost:4200' ];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -56,7 +56,7 @@ app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.send('You have chosen an excellent selection of movies!')
 });
 
-//request displaying the documentation
+//request displaying the 
 app.use(express.static('public/documentation.html'));
 
 //request data about a genre
